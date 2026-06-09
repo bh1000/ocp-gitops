@@ -1,0 +1,44 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: openshift-gitops-operator
+  labels:
+    openshift.io/cluster-monitoring: 'true'
+---
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: openshift-gitops-operator
+  namespace: openshift-gitops-operator
+spec:
+  upgradeStrategy: Default
+---
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: openshift-gitops-operator
+  namespace: openshift-gitops-operator
+  annotations:
+    argocd.argoproj.io/sync-wave: "-05"
+spec:
+  channel: latest
+  installPlanApproval: Automatic 
+  name: openshift-gitops-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+  # https://github.com/redhat-developer/gitops-operator/blob/master/docs/OpenShift%20GitOps%20Usage%20Guide.md#setting-environment-variables
+  # https://developers.redhat.com/articles/2023/03/06/5-global-environment-variables-provided-openshift-gitops#5_environment_variables__details
+  config:
+    env:
+      - name: DISABLE_DEFAULT_ARGOCD_INSTANCE
+        value: "true"
+      - name: DISABLE_DEFAULT_ARGOCD_CONSOLELINK
+        value: "true"
+      - name: ARGOCD_CLUSTER_CONFIG_NAMESPACES
+        value: openshift-gitops
+      # https://docs.redhat.com/en/documentation/red_hat_openshift_gitops/1.14/html-single/release_notes/index#RHBA-2024-8625-gitops-1-14-1-security-update-advisory_gitops-release-notes
+      - name: NAMESPACE_SCOPED_ARGO_ROLLOUTS
+        value: 'false'
+      - name: CLUSTER_SCOPED_ARGO_ROLLOUTS_NAMESPACES
+        value: openshift-gitops,test-gitops

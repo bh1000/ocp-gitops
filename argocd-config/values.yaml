@@ -1,0 +1,22 @@
+# Variable files for ArgoCD
+global:
+  namespace: openshift-gitops
+  clusterName: argocd-cluster
+  clusterDomain: $CLUSTER_DOMAIN
+
+namespace:
+  enabled: false
+
+runOnInfra:
+  enabled: false
+
+argoRollout:
+  enabled: false
+  ha: false
+
+# ArgoCD server configuration
+server:
+  # Disable admin user (default: true for security)
+  disableAdmin: true
+  # Enable anonymous users (default: false for security)
+  usersAnonymousEnabled: false

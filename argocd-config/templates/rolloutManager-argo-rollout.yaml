@@ -1,0 +1,24 @@
+{{- if .Values.argoRollout.enabled }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: RolloutManager
+metadata:
+  name: argo-rollout
+  namespace: {{ .Values.global.namespace }}
+spec:
+  ha:
+    enabled: {{ .Values.argoRollout.ha }}
+  namespaceScoped: false
+  nodePlacement:
+    {{- if .Values.runOnInfra.enabled }}
+      nodeSelector:
+        node-role.kubernetes.io/infra: ""
+    {{- end }}
+    tolerations:
+      - effect: NoSchedule
+        key: node-role.kubernetes.io/infra
+        value: reserved
+      - effect: NoExecute
+        key: node-role.kubernetes.io/infra
+        value: reserved
+{{- end }}
