@@ -7,7 +7,7 @@ oc apply -f https://raw.githubusercontent.com/bh1000/ocp-gitops/refs/heads/main/
 
 helm repo add alvarolop-gitops https://bh1000.github.io/ocp-gitops/
 helm repo update bh1000-gitops
-helm upgrade --install argocd alvarolop-gitops/argocd-config --namespace openshift-gitops \
+helm upgrade --install argocd bh1000-gitops/argocd-config --namespace openshift-gitops \
     --set global.namespace=openshift-gitops \
     --set global.clusterName=argocd \
     --set argoRollout.enabled=true \
@@ -19,4 +19,4 @@ helm package argocd-config
 helm repo index --url https://bh1000.github.io/helm-charts
 helm repo index . --url https://bh1000.github.io/helm-charts
 
-# commit changes
+# Commit changes
