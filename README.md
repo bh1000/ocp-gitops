@@ -1,5 +1,5 @@
 # ocp-gitops
-This repositories help to install argocd
+This repository installs argocd
 # Install the ArgoCD operator
 oc apply -f https://raw.githubusercontent.com/bh1000/ocp-gitops/refs/heads/main/argocd-operator-install.yaml
 
