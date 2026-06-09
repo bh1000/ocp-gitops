@@ -5,7 +5,7 @@ oc apply -f https://raw.githubusercontent.com/bh1000/ocp-gitops/refs/heads/main/
 
 # Deploy the ArgoCD instance
 
-helm repo add alvarolop-gitops https://bh1000.github.io/ocp-gitops/
+helm repo add bh1000-gitops https://bh1000.github.io/ocp-gitops/
 helm repo update bh1000-gitops
 helm upgrade --install argocd bh1000-gitops/argocd-config --namespace openshift-gitops \
     --set global.namespace=openshift-gitops \
