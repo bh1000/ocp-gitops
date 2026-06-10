@@ -16,7 +16,6 @@ helm upgrade --install argocd bh1000-gitops/argocd-config --namespace openshift-
 
 # Bump a new chart
 helm package argocd-config
-helm repo index --url https://bh1000.github.io/helm-charts
-helm repo index . --url https://bh1000.github.io/helm-charts
+helm repo index . --url https://bh1000.github.io/ocp-gitops
 
 # Commit changes
